@@ -1,16 +1,17 @@
 package backend;
 
+
 import java.util.ArrayList;
 
 public class Materia 
 {
     private String nombre;
-    private String tema;
+    private ArrayList<String> temas;
     private ArrayList<Pregunta> preguntas;
-    
-    public Materia(String nombre, String tema) {
+
+    public Materia(String nombre) {
         this.nombre = nombre;
-        this.tema = tema;
+        this.temas = new ArrayList<>();
         this.preguntas = new ArrayList<>();
     }
 
@@ -22,12 +23,12 @@ public class Materia
         this.nombre = nombre;
     }
 
-    public String getTema() {
-        return tema;
+    public ArrayList<String> getTemas() {
+        return temas;
     }
 
-    public void setTema(String tema) {
-        this.tema = tema;
+    public void setTemas(ArrayList<String> temas) {
+        this.temas = temas;
     }
 
     public ArrayList<Pregunta> getPreguntas() {
@@ -38,11 +39,11 @@ public class Materia
         this.preguntas = preguntas;
     }
 
+    public void addTema(String tema) {
+        this.temas.add(tema);
+    }
+
     public void addPregunta(Pregunta pregunta) {
         this.preguntas.add(pregunta);
-    }
-    
-    public void removePregunta(Pregunta pregunta) {
-        this.preguntas.remove(pregunta);
     }
 }

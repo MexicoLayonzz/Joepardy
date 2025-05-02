@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import frontend.*;
 
 import javax.swing.SwingUtilities;
@@ -12,7 +14,16 @@ public class App
 {
     public static void main(String[] args) throws Exception 
     {
-        Materia materia = new Materia("Matematicas", "Algebra");
+
+        ArrayList<String> tem = new ArrayList<>();
+        tem.add("Algebra");
+        tem.add("Geometria");
+        tem.add("Trigonometria");        
+        Materia materia = new Materia("Matematicas");
+
+        for (String tema : tem) {
+            materia.addTema(tema);
+        }
         materia.addPregunta(new Pregunta("200", "Punto cruz", "¿A*B = B*A teniendo que A y B son dos matrices de tamaño n?", "No son iguales"));
         materia.addPregunta(new Pregunta("100", "Determinante", "¿Como se saca el determinante?", "Por la regla de Sarrus"));
 
@@ -26,9 +37,15 @@ public class App
             preguntasJson.put(obj);
         }
 
+        JSONArray temasJson = new JSONArray();
+        for (String tema : materia.getTemas()) {
+            JSONObject obj = new JSONObject();
+            obj.put("tema", tema);
+        }
+
         JSONObject materiaJson = new JSONObject();
         materiaJson.put("materia", materia.getNombre());
-        materiaJson.put("categoria", materia.getTema());
+        materiaJson.put("categoria", temasJson);
         materiaJson.put("preguntas", preguntasJson);
 
         try (FileWriter file = new FileWriter("materia.json")) {
