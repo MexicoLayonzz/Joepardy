@@ -1,0 +1,18 @@
+{
+    "categoria": "Algebra",
+    "materia": "Español",
+    "preguntas": [
+        {
+            "categoria": "Punto cruz",
+            "valor": "200",
+            "respuesta": "No son iguales",
+            "pregunta": "¿A*B = B*A teniendo que A y B son dos matrices de tamaño n?"
+        },
+        {
+            "categoria": "Determinante",
+            "valor": "100",
+            "respuesta": "Por la regla de Sarrus",
+            "pregunta": "¿Como se saca el determinante?"
+        }
+    ]
+}

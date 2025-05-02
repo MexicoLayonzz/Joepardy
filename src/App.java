@@ -4,6 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
+import frontend.*;
+
+import javax.swing.SwingUtilities;
 
 public class App 
 {
@@ -36,5 +39,8 @@ public class App
         }
         // Read the JSON file and print its content
 
+        SwingUtilities.invokeLater(() -> {
+            new VentanaPrincipal(); // Assuming VentanaPrincipal is a JFrame class
+        });
     }
 }
