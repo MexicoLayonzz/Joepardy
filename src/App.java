@@ -1,13 +1,14 @@
 
 import backend.*;
+import frontend.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import frontend.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -55,16 +56,16 @@ public class App
         //-----------------------------Fin de la Datos-----------------------------
 
         //-----------------------------Creación de Archivo-----------------------------
-         
-        String rutaFichero = "storage/materia.txt"; // Ruta del archivo de texto
-        String contenido = "Hola, soy un archivo de texto"; // Contenido del archivo de texto
+        
+        Gson gson = new GsonBuilder().setPrettyPrinting().create(); // Crear un objeto Gson para convertir a JSON
+
+        String rutaFichero = "storage/materia.json"; // Ruta del archivo de texto
+
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(rutaFichero))) {
-            bw.write(contenido); // Escribir el contenido en el archivo
+            gson.toJson(materia, bw); // Escribir el contenido en el archivo
         } catch (IOException e) {
             e.printStackTrace(); // Manejo de excepciones
         }
-
-
 
         
         //------------------------------Fin de Archivo -----------------------------
