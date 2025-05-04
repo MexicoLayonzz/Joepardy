@@ -1,11 +1,11 @@
 
 import backend.*;
 import frontend.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
+//import org.json.JSONArray;
+//import org.json.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
+//import java.lang.reflect.Array;
 import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,6 +13,8 @@ import com.google.gson.GsonBuilder;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class App 
 {
@@ -55,21 +57,54 @@ public class App
         calculo.agregarPreguntas(preCalculo);
         //-----------------------------Fin de la Datos-----------------------------
 
-        //-----------------------------Creación de Archivo-----------------------------
+        //-----------------------------Creación de Archivo----------------------------- 
+        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del archivo:");
+
+        String nombreFichero = "storage/"+ nombre +".json"; // Ruta del archivo de texto
         
-        Gson gson = new GsonBuilder().setPrettyPrinting().create(); // Crear un objeto Gson para convertir a JSON
-
-        String rutaFichero = "storage/materia.json"; // Ruta del archivo de texto
-
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(rutaFichero))) {
-            gson.toJson(materia, bw); // Escribir el contenido en el archivo
-        } catch (IOException e) {
-            e.printStackTrace(); // Manejo de excepciones
-        }
-
+        CreacionArchivo(nombreFichero, materia); // Crear el archivo con el contenido de la materia
         
         //------------------------------Fin de Archivo -----------------------------
 
+        //------------------------------Mostrar la Ventana-----------------------------
+        mostrarVentanaPrincipal();
+        //-------------------------------Fin de la Ventana-----------------------------
 
+
+    }
+
+    public static void mostrarVentanaPrincipal() 
+    {
+        SwingUtilities.invokeLater(() -> {
+            VentanaPrincipal ventana = new VentanaPrincipal();
+            ventana.setVisible(true);
+        });
+    }
+
+    public static void CreacionArchivo(String rutaFichero, Materia materia) 
+    {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create(); // Crear un objeto Gson para convertir a JSON
+
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(rutaFichero))) 
+        {
+            gson.toJson(materia, bw); // Escribir el contenido en el archivo
+        } catch (IOException e) 
+        {
+            e.printStackTrace(); // Manejo de excepciones
+        }
+    }
+
+    public static void leerArchivo(String rutaFichero) 
+    {
+        Gson gson = new Gson(); // Crear un objeto Gson para leer el JSON
+
+        try(BufferedReader br = new BufferedReader(new FileReader(rutaFichero))) 
+        {
+            Materia materia = gson.fromJson(br, Materia.class); // Leer el contenido del archivo
+            System.out.println(materia); // Mostrar el contenido en consola
+        } catch (IOException e) 
+        {
+            e.printStackTrace(); // Manejo de excepciones
+        }
     }
 }
