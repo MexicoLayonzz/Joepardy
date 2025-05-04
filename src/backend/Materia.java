@@ -6,44 +6,41 @@ import java.util.ArrayList;
 public class Materia 
 {
     private String nombre;
-    private ArrayList<String> temas;
-    private ArrayList<Pregunta> preguntas;
+    private ArrayList<Categoria> categorias;
 
-    public Materia(String nombre) {
+    public Materia(String nombre) 
+    {
         this.nombre = nombre;
-        this.temas = new ArrayList<>();
-        this.preguntas = new ArrayList<>();
+        this.categorias = new ArrayList<>();
     }
 
-    public String getNombre() {
+    public String getNombre() 
+    {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) 
+    {
         this.nombre = nombre;
     }
 
-    public ArrayList<String> getTemas() {
-        return temas;
+    public ArrayList<Categoria> getCategorias() 
+    {
+        return categorias;
     }
 
-    public void setTemas(ArrayList<String> temas) {
-        this.temas = temas;
+    public void setCategorias(ArrayList<Categoria> categorias)
+    {
+        this.categorias = categorias;
     }
 
-    public ArrayList<Pregunta> getPreguntas() {
-        return preguntas;
+    public void agregarCategoria(Categoria categoria) 
+    {
+        this.categorias.add(categoria);
     }
-
-    public void setPreguntas(ArrayList<Pregunta> preguntas) {
-        this.preguntas = preguntas;
-    }
-
-    public void addTema(String tema) {
-        this.temas.add(tema);
-    }
-
-    public void addPregunta(Pregunta pregunta) {
-        this.preguntas.add(pregunta);
+    
+    public void eliminarCategoria(Categoria categoria) 
+    {
+        this.categorias.remove(categoria);
     }
 }
