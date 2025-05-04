@@ -4,13 +4,13 @@ public class Pregunta
 {
     private String pregunta;
     private String respuesta;
-    private Categoria categoria;
+    private Dificultad dificultad;
 
-    public Pregunta(String pregunta, String respuesta, Categoria categoria) 
+    public Pregunta(String pregunta, String respuesta, Dificultad dificultad) 
     {
         this.pregunta = pregunta;
         this.respuesta = respuesta;
-        this.categoria = categoria;
+        this.dificultad = dificultad;
     }
 
     public String getPregunta() 
@@ -33,16 +33,30 @@ public class Pregunta
         this.respuesta = respuesta;
     }
 
-    public Categoria getCategoria() 
+    public Dificultad getDificultad() 
     {
-        return categoria;
+        return dificultad;
     }
 
-    public void setCategoria(Categoria categoria) 
+    public void setDificultad(Dificultad dificultad) 
     {
-        this.categoria = categoria;
+        this.dificultad = dificultad;
     }
 
+    public static Pregunta agregarPregunta(String pregunta, String respuesta, Dificultad dificultad) 
+    {
+        return new Pregunta(pregunta, respuesta, dificultad);
+    }
+
+    public static Pregunta eliminarPregunta(String pregunta, String respuesta, Dificultad dificultad) 
+    {
+        return new Pregunta(pregunta, respuesta, dificultad);
+    }
+
+    public static Pregunta modificarPregunta(String pregunta, String respuesta, Dificultad dificultad) 
+    {
+        return new Pregunta(pregunta, respuesta, dificultad);
+    }
     
 
 }

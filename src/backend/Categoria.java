@@ -27,9 +27,17 @@ public class Categoria
         return preguntas;
     }
 
-    public Categoria agregarCategoria(String nombre) 
+    public static Categoria agregarCategoria(String nombre) 
     {
         return new Categoria(nombre);
     }
 
+    public void agregarPreguntas(ArrayList<Pregunta> nuevasPreguntas) 
+{
+        if (preguntas == null) 
+        {
+            preguntas = new ArrayList<>();
+        }
+        preguntas.addAll(nuevasPreguntas);
+    }   
 }
