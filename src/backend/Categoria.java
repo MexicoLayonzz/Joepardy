@@ -27,7 +27,7 @@ public class Categoria
         return preguntas;
     }
 
-    public static Categoria agregarCategoria(String nombre) 
+    public static Categoria add(String nombre) 
     {
         return new Categoria(nombre);
     }

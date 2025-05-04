@@ -1,0 +1,405 @@
+{
+  "nombre": "Bases de datos",
+  "categorias": [
+    {
+      "nombre": "Select",
+      "preguntas": [
+        {
+          "pregunta": "Muestra todas las columnas de la tabla cliente.",
+          "respuesta": "SELECT * FROM cliente;",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra solo las columnas nombre y email de la tabla cliente.",
+          "respuesta": "SELECT nombre, email FROM cliente;",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra la palabra \u0027Hola\u0027 como una columna llamada saludo.",
+          "respuesta": "SELECT \u0027Hola\u0027 AS saludo;",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra el valor 2025-01-01 como una columna llamada fecha_inicio.",
+          "respuesta": "SELECT DATE \u00272025-01-01\u0027 AS fecha_inicio;",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra el resultado de conectar el nombre y apellido del cliente separados por un espacio.",
+          "respuesta": "SELECT nombre || \u0027 \u0027 || apellido AS nombre_completo FROM clientes;",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Where",
+      "preguntas": [
+        {
+          "pregunta": "Muestra los productos cuyo precio sea exactamente 100.",
+          "respuesta": "SELECT * FROM producto WHERE precio \u003d 100;",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra los clientes que viven en la ciudad de \u0027Monterrey\u0027.",
+          "respuesta": "SELECT * FROM cliente WHERE ciudad \u003d \u0027Monterrey\u0027;",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra los pedidos cuyo total sea diferente de 500.",
+          "respuesta": "SELECT * FROM pedido WHERE total !\u003d 500;",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra las ventas con un total mayor a 1000 y menor a 5000.",
+          "respuesta": "SELECT * FROM venta WHERE total \u003e 1000 AND total \u003c 5000;",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra los registros donde el campo teléfono no es nulo y el campo email termina en .com.",
+          "respuesta": "SELECT * FROM cliente WHERE telefono IS NOT NULL AND email LIKE \u0027%.com\u0027;",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Order by",
+      "preguntas": [
+        {
+          "pregunta": "Muestra todos los productos ordenados por nombre (ascendente).",
+          "respuesta": "SELECT * FROM producto ORDER BY nombre ASC;",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra los productos ordenados por precio de mayor a menor.",
+          "respuesta": "SELECT * FROM producto ORDER BY precio DESC;",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra los alumnos ordenados por apellido y luego por nombre.",
+          "respuesta": "SELECT * FROM alumno ORDER BY apellido ASC, nombre ASC;",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra las películas ordenadas por la duración (de menor a mayor).",
+          "respuesta": "SELECT * FROM pelicula ORDER BY duracion ASC;",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra los artículos ordenados por la cantidad de caracteres en el nombre.",
+          "respuesta": "SELECT * FROM articulo ORDER BY LENGTH(nombre);",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Limit",
+      "preguntas": [
+        {
+          "pregunta": "Muestra los primeros 5 registros de la tabla usuarios.",
+          "respuesta": "SELECT * FROM usuario LIMIT 5;",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra los primeros 3 productos con menor precio.",
+          "respuesta": "SELECT * FROM producto ORDER BY precio ASC LIMIT 3;",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra los siguientes 10 clientes después de omitir los primeros 5.",
+          "respuesta": "SELECT * FROM cliente OFFSET 5 LIMIT 10;",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra 1 solo empleado con el mayor salario.",
+          "respuesta": "SELECT * FROM empleado ORDER BY salario DESC LIMIT 1;",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra los últimos 2 pedidos (considerando fecha de pedido descendente).",
+          "respuesta": "SELECT * FROM pedido ORDER BY fecha_pedido DESC LIMIT 2;",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Distinct",
+      "preguntas": [
+        {
+          "pregunta": "Muestra todas las ciudades distintas de la tabla clientes.",
+          "respuesta": "SELECT DISTINCT ciudad FROM cliente;",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra los tipos de producto únicos en la tabla productos.",
+          "respuesta": "SELECT DISTINCT tipo FROM producto;",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra combinaciones distintas de nombre y apellido en la tabla personas.",
+          "respuesta": "SELECT DISTINCT nombre, apellido FROM persona;",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra la cantidad de correos electrónicos únicos en la tabla usuarios.",
+          "respuesta": "SELECT COUNT(DISTINCT email) FROM usuario;",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra todas las fechas de pedidos distintas en la tabla ventas.",
+          "respuesta": "SELECT DISTINCT fecha FROM venta;",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "In/Not In",
+      "preguntas": [
+        {
+          "pregunta": "Muestra los productos cuyo ID es 1, 3 o 7.",
+          "respuesta": "SELECT * FROM producto WHERE id IN (1,3,7);",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra los alumnos que están en los grupos 101, 103 y 105.",
+          "respuesta": "SELECT * FROM alumno WHERE grupo IN (101, 103, 105);",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra los empleados que no trabajan en los departamentos 2 ni 4.",
+          "respuesta": "SELECT * FROM empleado WHERE departamento_id NOT IN (2, 4);",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra los artículos cuya categoría se encuentra en una subconsulta que selecciona categorías activas.",
+          "respuesta": "SELECT * FROM articulo WHERE categoria_id IN (SELECT id FROM categorias WHERE activa \u003d TRUE);",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra los usuarios cuyo ID no aparece en la tabla logins.",
+          "respuesta": "SELECT * FROM usuario WHERE id NOT IN (SELECT usuario_id FROM login);",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Between",
+      "preguntas": [
+        {
+          "pregunta": "Muestra los productos con precio entre 100 y 200.",
+          "respuesta": "SELECT * FROM producto WHERE precio BETWEEN 100 AND 200;",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra los eventos con fecha entre \u00272023-01-01\u0027 y \u00272023-12-31\u0027.",
+          "respuesta": "SELECT * FROM evento WHERE fecha BETWEEN \u00272023-01-01\u0027 AND \u00272023-12-31\u0027;",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra las edades entre 18 y 25 de la tabla personas.",
+          "respuesta": "SELECT * FROM persona WHERE edad BETWEEN 18 AND 25;",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra los libros con entre 100 y 300 páginas.",
+          "respuesta": "SELECT * FROM libro WHERE paginas BETWEEN 100 AND 300;",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra los salarios que estén entre 8000 y 12000, inclusive.",
+          "respuesta": "SELECT * FROM empleado WHERE salario BETWEEN 8000 AND 12000;",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Like",
+      "preguntas": [
+        {
+          "pregunta": "Muestra los productos cuyo nombre empieza con \u0027C\u0027.",
+          "respuesta": "SELECT * FROM producto WHERE nombre LIKE \u0027C%\u0027;",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra los usuarios cuyo correo contiene \u0027gmail\u0027.",
+          "respuesta": "SELECT * FROM usuario WHERE email LIKE \u0027%gmail%\u0027;",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra los clientes cuyo nombre termina en \u0027o\u0027.",
+          "respuesta": "SELECT * FROM cliente WHERE nombre LIKE \u0027%o\u0027;",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra los artículos cuyo código tiene exactamente 5 caracteres.",
+          "respuesta": "SELECT * FROM articulo WHERE LENGTH(codigo) \u003d 5;",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra los estudiantes cuyo nombre contiene doble letra \u0027a\u0027.",
+          "respuesta": "SELECT * FROM estudiante WHERE nombre LIKE \u0027%aa%\u0027;",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Funciones Agregadas",
+      "preguntas": [
+        {
+          "pregunta": "Muestra la cantidad total de clientes.",
+          "respuesta": "SELECT COUNT(*) FROM clientes;",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra el promedio de precios en la tabla productos.",
+          "respuesta": "SELECT AVG(precio) FROM producto;",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra la cantidad de empleados por cada departamento.",
+          "respuesta": "SELECT departamento_id, COUNT(*) FROM empleado GROUP BY departamento_id;",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra la suma total de ventas agrupadas por mes.",
+          "respuesta": "SELECT DATE_TRUNC(\u0027month\u0027, fecha) AS mes, SUM(total) FROM venta GROUP BY DATE_TRUNC(\u0027month\u0027, fecha);",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra los departamentos con más de 10 empleados.",
+          "respuesta": "SELECT departamento_id FROM empleado GROUP BY departamento_id HAVING COUNT(*)\u003e10;",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Join",
+      "preguntas": [
+        {
+          "pregunta": "Muestra todos los pedidos con los nombres de los clientes.",
+          "respuesta": "SELECT pedidos.id, clientes.nombre FROM pedido JOIN cliente ON pedidos.cliente_id \u003d clientes.id;",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "Muestra los empleados junto con el nombre de su departamento.",
+          "respuesta": "SELECT empleados.nombre, departamentos.nombre FROM empleado JOIN departamento ON empleados.departamento_id \u003d departamentos.id;",
+          "dificultad": {
+            "puntos": 200
+          }
+        },
+        {
+          "pregunta": "Muestra los productos vendidos en cada pedido.",
+          "respuesta": "SELECT pedidos.id, productos.nombre FROM pedido JOIN detalles_pedido ON pedidos.id \u003d detalles_pedido.pedido_id JOIN producto ON detalles_pedido.producto_id \u003d productos.id;",
+          "dificultad": {
+            "puntos": 300
+          }
+        },
+        {
+          "pregunta": "Muestra el nombre del estudiante y el nombre del curso en el que está inscrito.",
+          "respuesta": "SELECT estudiantes.nombre, cursos.nombre FROM inscripcion JOIN estudiante ON inscripciones.estudiante_id \u003d estudiantes.id JOIN curso ON inscripciones.curso_id \u003d cursos.id;",
+          "dificultad": {
+            "puntos": 400
+          }
+        },
+        {
+          "pregunta": "Muestra todos los artículos con el nombre de su categoría.",
+          "respuesta": "SELECT a.nombre AS articulo, c.nombre AS categoria FROM articulo a JOIN categoria c ON a.categoria_id \u003d c.id;",
+          "dificultad": {
+            "puntos": 500
+          }
+        }
+      ]
+    }
+  ]
+}

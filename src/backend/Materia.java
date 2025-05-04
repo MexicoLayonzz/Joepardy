@@ -43,4 +43,11 @@ public class Materia
     {
         this.categorias.remove(categoria);
     }
+
+    public void agregarCategorias(ArrayList<Categoria> categorias) {
+        if (this.categorias == null) {
+            this.categorias = new ArrayList<>();
+        }
+        this.categorias.addAll(categorias);
+    }
 }
