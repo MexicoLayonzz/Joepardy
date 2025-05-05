@@ -15,6 +15,10 @@ public class App
 {
     public static void main(String[] args) throws Exception 
     {
+
+        JOptionPane.showMessageDialog(null, "Bienvenido a la aplicación de creación de preguntas SQL.\n" +
+                "Esta aplicación te permitirá crear preguntas SQL y guardarlas en un archivo JSON.\n" +
+                "¡Disfruta creando tus preguntas!");
         //-----------------------------Creación de la Datos-----------------------------
         //Creación de una materia
         Materia materia = new Materia("Bases de datos");
