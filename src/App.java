@@ -46,4 +46,9 @@ public class App
             e.printStackTrace(); // Manejo de excepciones
         }
     }
+
+    public static void CrearMateria(String nombre)
+    {
+        Materia materia = new Materia(nombre); // Crear una nueva materia
+    }
 }
