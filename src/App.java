@@ -12,22 +12,9 @@ public class App
 {
     public static void main(String[] args) throws Exception 
     {
-        /* 
-        //-----------------------------Creación de Archivo----------------------------- 
-        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del archivo:");
-
-        String nombreFichero = "storage/"+ nombre +".json"; // Ruta del archivo de texto
-        
-        CreacionArchivo(nombreFichero, materia); // Crear el archivo con el contenido de la materia
-        
-        //------------------------------Fin de Archivo -----------------------------
-        */
-
-
 
         //------------------------------Mostrar la Ventana-----------------------------
-        new MainWindow().setVisible(true);
-
+        new MainWindow().setVisible(true); 
         //-------------------------------Fin de la Ventana-----------------------------
 
 
