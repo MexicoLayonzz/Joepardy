@@ -4,14 +4,14 @@ import java.awt.*;
 import javax.swing.*;
 
 public class EditTopic extends JPanel {
-    private JFrame parentAlter;
+    //private JFrame parentAlter;
     
     private JPanel pnlTitle;
     private JPanel pnlContent;
     private JPanel pnlExtra;
 
     public EditTopic(JFrame parent) {
-        this.parentAlter = parent;
+        //this.parentAlter = parent;
         setLayout(new BorderLayout());
         PanelConfig();
         setPreferredSize(new Dimension(parent.getWidth(), parent.getHeight()));

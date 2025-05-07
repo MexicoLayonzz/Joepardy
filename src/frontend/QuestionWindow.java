@@ -3,6 +3,8 @@ package frontend;
 import java.awt.*;
 import javax.swing.*;
 
+import com.google.gson.JsonObject;
+
 public class QuestionWindow extends JDialog {
 	private JFrame parentAlter;
 
@@ -11,7 +13,7 @@ public class QuestionWindow extends JDialog {
     private JPanel pnlTeamsButton;
 
     private JLabel lblTitle;
-    private JLabel lblText;
+    //private JLabel lblText;
     
     private JButton btnAccept;
 
@@ -19,11 +21,11 @@ public class QuestionWindow extends JDialog {
     private Integer intIDQuestion;
     private Integer teamSelect;
 	
-	public QuestionWindow(JFrame parent, Integer intIDQuestion, Integer[] configValues) {
-		super(parent, "Pregunta #" + intIDQuestion, true);
+	public QuestionWindow(JFrame parent, JsonObject pregunta, Integer[] configValues) {
+		super(parent, "Pregunta #" + pregunta, true);
     	this.parentAlter = parent;
     	this.configValues = configValues;
-    	this.intIDQuestion = intIDQuestion;
+    	
         Config();
         PanelConfig();
         TitleConfig();

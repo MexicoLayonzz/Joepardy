@@ -1,10 +1,12 @@
 package frontend;
 
 import java.awt.*;
+import java.io.File;
+
 import javax.swing.*;
 
 public class MatterSelection extends JPanel {
-    private JFrame parentAlter;
+    //private JFrame parentAlter;
     private MainMenu mainMenu;
     
     private JPanel pnlTitle;
@@ -12,10 +14,10 @@ public class MatterSelection extends JPanel {
     private JPanel pnlExtra;
     private JPanel pnlButtonMenu;
 
-    private String[] nameOptions;
+    //private String[] nameOptions;
 
     public MatterSelection(JFrame parent, MainMenu mainMenu) {
-        this.parentAlter = parent;
+        //this.parentAlter = parent;
         this.mainMenu = mainMenu;
         setLayout(new BorderLayout());
         PanelConfig();
@@ -46,41 +48,48 @@ public class MatterSelection extends JPanel {
     /**
      * Configura los botones de opciones del menú principal.
      */
+    /**
+     * Configura los botones de opciones del menú principal basados en los archivos JSON en la carpeta "storage".
+     */
     public void ButtonConfig() {
-        nameOptions = new String[]{
-            "Matemáticas",
-            "Historia", 
-            "Ciencias",
-            "Literatura",
-            "Geografía",
-            "Arte"
-        };
-        pnlButtonMenu = new JPanel(new GridLayout(nameOptions.length, 1));
+        pnlButtonMenu = new JPanel(new GridLayout(0, 1)); // Crear un GridLayout dinámico
         pnlButtonMenu.setBackground(new Color(25, 25, 100));
         pnlButtonMenu.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        
-        for(int i = 0; i < nameOptions.length; i++) {
-            final int optionIndex = i;
-            JButton button = new JButton(nameOptions[i]);
-            button.setFont(new Font("Arial", Font.BOLD, 12));
-            button.setBackground(new Color(25, 25, 100));
-            button.setForeground(new Color(250, 175, 25));
-            button.addActionListener(e -> {
-                switch (optionIndex) {
-                    case 0:
-                        System.out.print(optionIndex);
-                        break;
-                    case 1:
-                        System.out.print(optionIndex);
-                        break;
-                    case 2:
-                        System.out.print(optionIndex);
-                        break;
-                }
-                mainMenu.showJeopardyPanel();
-            });            
-            pnlButtonMenu.add(button);
+
+        // Obtener la lista de archivos JSON en la carpeta "storage"
+        File carpeta = new File("storage");
+        File[] archivos = carpeta.listFiles((dir, name) -> name.endsWith(".json"));
+
+        if (archivos != null) {
+            for (File archivo : archivos) {
+                // Obtener el nombre de la materia (sin la extensión .json)
+                String nombreMateria = archivo.getName().replace(".json", "");
+
+                // Crear un botón para cada archivo 
+                JButton boton = new JButton(nombreMateria);
+                boton.setFont(new Font("Arial", Font.BOLD, 12));
+                boton.setBackground(new Color(25, 25, 100));
+                boton.setForeground(new Color(250, 175, 25));
+
+                // Agregar un ActionListener al botón
+                boton.addActionListener(e -> {
+                    // Aquí podrías abrir una ventana con las categorías de esta materia
+                    System.out.println("Elegiste: " + nombreMateria);
+                    mainMenu.showJeopardyPanel(); // Cambiar al panel de Jeopardy
+                });
+
+                // Agregar el botón al panel
+                pnlButtonMenu.add(boton);
+            }
+        } else {
+            // Si no hay archivos, mostrar un mensaje
+            JLabel lblNoArchivos = new JLabel("No hay materias disponibles.");
+            lblNoArchivos.setForeground(Color.WHITE);
+            lblNoArchivos.setHorizontalAlignment(SwingConstants.CENTER);
+            pnlButtonMenu.add(lblNoArchivos);
         }
+
+        // Agregar el panel de botones al contenido principal
         pnlContent.add(pnlButtonMenu);
     }
 }

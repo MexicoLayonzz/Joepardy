@@ -1,0 +1,36 @@
+{
+  "nombre": "Historia",
+  "categorias": [
+    {
+      "nombre": "México",
+      "preguntas": [
+        {
+          "pregunta": "hola",
+          "respuesta": "adios",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "adios",
+          "respuesta": "hola",
+          "dificultad": {
+            "puntos": 200
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Universal",
+      "preguntas": [
+        {
+          "pregunta": "Como estas",
+          "respuesta": "bien",
+          "dificultad": {
+            "puntos": 400
+          }
+        }
+      ]
+    }
+  ]
+}
