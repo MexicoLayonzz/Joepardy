@@ -1,31 +1,36 @@
-package frontend;
+package frontend; 
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import javax.swing.*;
 
-public class Jeopardy extends JPanel
-{
+/**
+ * Panel principal del juego Jeopardy que muestra las categorías, preguntas
+ * y el seguimiento de puntajes por equipo.
+ */
+public class Jeopardy extends JPanel {
     private JFrame parentAlter;
-
+    
     private QuestionWindow qw;
-
+    
     private JPanel pnlTitle;
     private JPanel pnlQuestions;
     private JPanel pnlTeams;
 
-    private JLabel lblTitle;
-
+    //private JLabel lblTitle;
+    
     private List<JButton> lstButtonQuestions;
-    private List<JSpinner> teamSpinners = new ArrayList<>();
+    private List<JSpinner> teamSpinners;
 
     private Integer[] configValues;
     private Integer intIDQuestion;
     private Integer teamSelect;
-
-    public Jeopardy(JFrame parent)
-    {
+    
+    /**
+     * Constructor que inicializa el panel del juego Jeopardy.
+     */
+    public Jeopardy(JFrame parent) {
         this.parentAlter = parent;
         setLayout(new BorderLayout());
         NumberConfig();
@@ -33,112 +38,115 @@ public class Jeopardy extends JPanel
         TitleConfig();
         QuestionConfig();
         TeamConfig();
+        setPreferredSize(new Dimension(parent.getWidth(), parent.getHeight()));
     }
 
-    //Obtener Valores (Configurar El JSON)
+    /**
+     * Configura los valores iniciales del juego (columnas, filas, equipos).
+     */
     public void NumberConfig() {
-    	//Arreglo Del Siguiente Orden [Columnas, Filas, NumeroEquipos]
-    	configValues = new Integer[]{10, 5, 5};
-    	//Setear ID en 0
-    	intIDQuestion = 0;
+        configValues = new Integer[]{10, 5, 5}; // [Columnas, Filas, Equipos]
+        intIDQuestion = 0;
     }
 
-    //Configuracion De Paneles
+    /**
+     * Configura los paneles principales del juego.
+     */
     public void PanelConfig() {
-    	//Panel De Titulo
-        pnlTitle = new JPanel(new BorderLayout());//panel con ubicacion especifica
-        pnlTitle.setBackground(new Color(50, 50, 150));//Color Del Fondo
-        pnlTitle.setPreferredSize(new Dimension(getWidth(), 60));//Altura Especifica
-        pnlTitle.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));//Bordes
+        // Panel de título
+        pnlTitle = new JPanel(new GridLayout(1, configValues[0], 5, 5));
+        pnlTitle.setBackground(new Color(25, 25, 100));
+        pnlTitle.setPreferredSize(new Dimension(getWidth(), 60));
+        pnlTitle.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        //Panel De Botones De Preguntas
-        pnlQuestions = new JPanel(new GridLayout(configValues[1], configValues[0], 5, 5));//panel con ubicacion especifica
-        pnlQuestions.setBackground(new Color(25, 25, 100));//Color Del Fondo
+        // Panel de preguntas
+        pnlQuestions = new JPanel(new GridLayout(configValues[1], configValues[0], 5, 5));
+        pnlQuestions.setBackground(new Color(25, 25, 100));
         pnlQuestions.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        //Panel De Muestra De Equipos
-		pnlTeams = new JPanel(new GridLayout(1, configValues[2], 5, 5));//panel Con Forma De Celdas
-		pnlTeams.setBackground(new Color(10, 10, 75));//Color Del Fondo
-		pnlTeams.setPreferredSize(new Dimension(getWidth(), 50));//Altura Especifica
+        // Panel de equipos
+        pnlTeams = new JPanel(new GridLayout(1, configValues[2], 5, 5));
+        pnlTeams.setBackground(new Color(10, 10, 75));
+        pnlTeams.setPreferredSize(new Dimension(getWidth(), 50));
         
-		//Ubicacion De Los Paneles¿
-        add(pnlTitle, BorderLayout.NORTH);//Norte
-        add(pnlQuestions, BorderLayout.CENTER);//Centro
-        add(pnlTeams, BorderLayout.SOUTH);//Sur
+        add(pnlTitle, BorderLayout.NORTH);
+        add(pnlQuestions, BorderLayout.CENTER);
+        add(pnlTeams, BorderLayout.SOUTH);
     }
     
-    //Funcion De Panel Titulo
+    /**
+     * Configura el título y botón de regreso del juego.
+     */
     public void TitleConfig() {
-        lblTitle = new JLabel("Jeopardy", SwingConstants.CENTER);//Titulo Centrado
-        lblTitle.setFont(new Font("Arial", Font.BOLD, 24));//Configuración De Letra
-        lblTitle.setForeground(new Color(250, 175, 25));//Color De Letra
-        pnlTitle.add(lblTitle, BorderLayout.CENTER);//Añadir Panel Al Centro
+        for(int i = 0; i < configValues[0]; i++) {
+            JLabel lblTitle = new JLabel("Categoria " + (i + 1), SwingConstants.CENTER);
+            lblTitle.setFont(new Font("Arial", Font.BOLD, 12));
+            lblTitle.setForeground(new Color(250, 175, 25));
+            pnlTitle.add(lblTitle);
+        }
     }
 
-    //Funcion Del Panel De Preguntas
+    /**
+     * Configura los botones de preguntas del juego.
+     */
     public void QuestionConfig() {
-    	intIDQuestion = 0;//Conteo Inicial
-        lstButtonQuestions = new ArrayList<>();//Lista De Botones
+        intIDQuestion = 0;
+        lstButtonQuestions = new ArrayList<>();
         for(int i = 0; i < configValues[1]; i++) {
             for(int j = 0; j < configValues[0]; j++) {
-            	intIDQuestion += 1;//Aumento De Conteo
-                final int intCurrentIDQuestion = intIDQuestion;//Obtener Conteo Actual
-                JButton btnQuestion = new JButton("$" + (i+1)*100);//Crear boton
-                btnQuestion.putClientProperty("questionId", intIDQuestion);//Asociar ID al boton
-                btnQuestion.setFont(new Font("Arial", Font.BOLD, 12));//Tipo De Letra
-                btnQuestion.setBackground(new Color(25, 25, 100));//Color De Fondo
-                btnQuestion.setForeground(new Color(250, 175, 25));//Color De Letra
+                intIDQuestion += 1;
+                final int intCurrentIDQuestion = intIDQuestion;
+                final int valuePoints = (i + 1) * 100;
+                JButton btnQuestion = new JButton("$" + (i + 1) * 100);
+                btnQuestion.putClientProperty("questionId", intIDQuestion);
+                btnQuestion.setFont(new Font("Arial", Font.BOLD, 12));
+                btnQuestion.setBackground(new Color(25, 25, 100));
+                btnQuestion.setForeground(new Color(250, 175, 25));
                 btnQuestion.addActionListener(e -> {
-                    qw = new QuestionWindow(parentAlter, intCurrentIDQuestion, configValues);//Invocar JDialog De Pregunta
-                    qw.setModal(true);//Bloquear Interaccion Con Panel Actual
-                    qw.setVisible(true);//Ver Panel
-                    teamSelect = qw.TeamSelected();//Obtener ID Del Equipo
-                    JButton btnClicked = (JButton) e.getSource();//Saber Que Boton Fue Presionado
-                    btnClicked.setBackground(new Color(75,75,75));//Color De Fondo
-                    btnClicked.setForeground(new Color(0,0,0));//Color De Letra
-                    //Añadir Valor Al JSpinner Del Equipo
+                    qw = new QuestionWindow(parentAlter, intCurrentIDQuestion, configValues);
+                    qw.setModal(true);
+                    qw.setVisible(true);
+                    teamSelect = qw.TeamSelected();
+                    JButton btnClicked = (JButton) e.getSource();
+                    btnClicked.setBackground(new Color(75,75,75));
+                    btnClicked.setForeground(new Color(0,0,0));
                     if (teamSelect != null && teamSelect >= 0 && teamSelect < teamSpinners.size()) {
-                        JSpinner spinner = teamSpinners.get(teamSelect);//Obtener JSpinner Del Equipo Seleccionado
-                        int current = (int) spinner.getValue();//Obtener Valor actual del boton
-                        spinner.setValue(current + 100);//sumarle 100 al Jspinner seleccionado
+                        JSpinner spinner = teamSpinners.get(teamSelect);
+                        int current = (int) spinner.getValue();
+                        spinner.setValue(current + valuePoints);
                     }
                 });
-                lstButtonQuestions.add(btnQuestion);//Añadir boton a la lista
-                pnlQuestions.add(btnQuestion);//añadir boton al panel
+                lstButtonQuestions.add(btnQuestion);
+                pnlQuestions.add(btnQuestion);
             }
         }
     }
     
-    //Funcion Del Panel De Equipos
+    /**
+     * Configura los controles de puntaje para cada equipo.
+     */
     public void TeamConfig() {
-    	//Añadir Conteo De Puntaje De Equipo
+        teamSpinners = new ArrayList<>();
         for(int i = 0; i < configValues[2]; i++) {
-        	//Panel De Agrupar En Forma De Columnas
-        	JPanel pnlGroupTeam = new JPanel(new GridLayout(2, 1, 5, 5));
-        	pnlGroupTeam.setBackground(new Color(10, 10, 75));//Color De Fondo
-        	
-            JLabel lblNameTeam = new JLabel("Team " + (i + 1));//Texto De Equipo
-            lblNameTeam.setFont(new Font("Arial", Font.BOLD, 12));//Formato De Letra
-            lblNameTeam.setForeground(new Color(250, 175, 25));//Color De Letra
-            pnlGroupTeam.add(lblNameTeam);//Añadir Label
+            JPanel pnlGroupTeam = new JPanel(new GridLayout(2, 1, 5, 5));
+            pnlGroupTeam.setBackground(new Color(10, 10, 75));
+            
+            JLabel lblNameTeam = new JLabel("Team " + (i + 1));
+            lblNameTeam.setFont(new Font("Arial", Font.BOLD, 12));
+            lblNameTeam.setForeground(new Color(250, 175, 25));
+            pnlGroupTeam.add(lblNameTeam);
 
-            //Crear JSPinner desde 0 hasta 999999 y aumentos en 100
             JSpinner spnCountPoints = new JSpinner(new SpinnerNumberModel(0, 0, 999999, 100));
-            spnCountPoints.setFont(new Font("Arial", Font.BOLD, 12));//Formato De Letra
+            spnCountPoints.setFont(new Font("Arial", Font.BOLD, 12));
             spnCountPoints.setEditor(new JSpinner.DefaultEditor(spnCountPoints));
-            //Hacer Que No Se Modifique El JSpinner
             ((JSpinner.DefaultEditor)spnCountPoints.getEditor()).getTextField().setEditable(false);
-            //Setear Color De Fondo
             ((JSpinner.DefaultEditor)spnCountPoints.getEditor()).getTextField().setBackground(new Color(10, 10, 75));
-            //Setear Color De Letra
             ((JSpinner.DefaultEditor)spnCountPoints.getEditor()).getTextField().setForeground(new Color(250, 175, 25));
-            //Configurar Horizontalmente Al Centro
             ((JSpinner.DefaultEditor)spnCountPoints.getEditor()).getTextField().setHorizontalAlignment(SwingConstants.CENTER);
-            teamSpinners.add(spnCountPoints);//Añadir Conteo Al JSPinner
-            pnlGroupTeam.add(spnCountPoints);//Añadir JSpiner
+            teamSpinners.add(spnCountPoints);
+            pnlGroupTeam.add(spnCountPoints);
 
-            pnlTeams.add(pnlGroupTeam);//añadir JSpinner Al Panel DE Equipos
+            pnlTeams.add(pnlGroupTeam);
         }
     }
-
 }

@@ -17,7 +17,7 @@ public class App
     {
 
         //------------------------------Mostrar la Ventana-----------------------------
-        new MainWindow().setVisible(true); 
+        new MainWindow().setVisible(true); // Crear una instancia de la ventana principal y hacerla visible
         //-------------------------------Fin de la Ventana-----------------------------
         editarPreguntaGeometria("storage/matematicas.json"); // Llamar al método para editar la pregunta de geometría
 

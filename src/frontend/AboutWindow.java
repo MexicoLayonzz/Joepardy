@@ -1,7 +1,6 @@
 package frontend;
 
 import java.awt.*;
-
 import javax.swing.*;
 
 public class AboutWindow extends JDialog {
