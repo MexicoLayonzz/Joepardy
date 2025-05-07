@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class CreateTopic extends JPanel {
     //private JFrame parentAlter;
-    private JPanel pnlTitle, pnlCamposCategorias, pnlPreguntas;
+    private JPanel pnlTitle, pnlCamposCategorias, pnlPreguntas, pnlFormulario;
     private JScrollPane scrollPane, scrollPanePreguntas;
     private String materiaName;
     private int numCategoriasInt;
@@ -51,7 +51,7 @@ public class CreateTopic extends JPanel {
         lblNumCategorias.setForeground(Color.WHITE);
         btnCrear.setFont(new Font("Arial", Font.BOLD, 14));
 
-        JPanel pnlFormulario = new JPanel(new GridBagLayout());
+        pnlFormulario = new JPanel(new GridBagLayout());
         pnlFormulario.setBackground(fondoPrincipal);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -90,6 +90,8 @@ public class CreateTopic extends JPanel {
             }
 
             try {
+                pnlFormulario.setVisible(false);
+                pnlTitle.remove(pnlFormulario);
                 numCategoriasInt = Integer.parseInt(numCategoriasStr);
                 if (numCategoriasInt <= 0) throw new NumberFormatException();
 
@@ -188,7 +190,8 @@ public class CreateTopic extends JPanel {
                             camposRespuestas.add(txtRespuesta);
                             camposDificultad.add(comboDificultad);
 
-                            pnlPreguntas.add(filaPregunta);
+                            JScrollPane scrQuestions = new JScrollPane(filaPregunta);
+                            pnlPreguntas.add(scrQuestions);
                         }
                     }
 
@@ -293,7 +296,7 @@ public class CreateTopic extends JPanel {
                         break;
                 }
 
-                if (!texto.isEmpty() && !respuesta.isEmpty() && dificultad != null) {
+                if (!(texto.isEmpty() || respuesta.isEmpty() || dificultad == null)) {
                     preguntas.add(new Pregunta(texto, respuesta, dificultad));
                 }
                 preguntaIndex++;
