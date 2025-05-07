@@ -1,15 +1,16 @@
 package backend;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Categoria 
 {
     private String nombre;
-    private ArrayList<Pregunta> preguntas;
+    private List<Pregunta> preguntas;
 
     public Categoria(String nombre) 
     {
         this.nombre = nombre;
+        this.preguntas = new ArrayList<>();
     }
 
     public String getNombre() 
@@ -22,7 +23,7 @@ public class Categoria
         this.nombre = nombre;
     }
 
-    public ArrayList<Pregunta> getPreguntas() 
+    public List<Pregunta> getPreguntas() 
     {
         return preguntas;
     }
@@ -32,7 +33,7 @@ public class Categoria
         return new Categoria(nombre);
     }
 
-    public void agregarPreguntas(ArrayList<Pregunta> nuevasPreguntas) 
+    public void agregarPreguntas(List<Pregunta> nuevasPreguntas) 
 {
         if (preguntas == null) 
         {

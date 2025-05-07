@@ -1,0 +1,43 @@
+{
+  "nombre": "Matemáticas",
+  "categorias": [
+    {
+      "nombre": "Álgebra",
+      "preguntas": [
+        {
+          "pregunta": "¿Qué es 2 + 2?",
+          "respuesta": "4",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "¿Qué es 3 * 3?",
+          "respuesta": "9",
+          "dificultad": {
+            "puntos": 200
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "Geometría",
+      "preguntas": [
+        {
+          "pregunta": "¿Cuántos lados tiene un triángulo?",
+          "respuesta": "3",
+          "dificultad": {
+            "puntos": 100
+          }
+        },
+        {
+          "pregunta": "¿Qué es un ángulo?",
+          "respuesta": "90 grados",
+          "dificultad": {
+            "puntos": 200
+          }
+        }
+      ]
+    }
+  ]
+}
