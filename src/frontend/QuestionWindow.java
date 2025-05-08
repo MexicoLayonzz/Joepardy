@@ -18,18 +18,17 @@ public class QuestionWindow extends JDialog {
     private JButton btnAccept;
 
 	private Integer[] configValues;
-    private Integer intIDQuestion;
     private Integer teamSelect;
 	
 	public QuestionWindow(JFrame parent, JsonObject pregunta, Integer[] configValues) {
-		super(parent, "Pregunta #" + pregunta, true);
+		super(parent, "Pregunta #", true);
     	this.parentAlter = parent;
     	this.configValues = configValues;
     	
         Config();
         PanelConfig();
         TitleConfig();
-        ContentConfig();
+        ContentConfig(pregunta);
 	}
 
     public void Config() {
@@ -60,32 +59,72 @@ public class QuestionWindow extends JDialog {
     }
 
     public void TitleConfig() {
-        lblTitle = new JLabel("Pregunta" + intIDQuestion + "\n", SwingConstants.CENTER);
+        lblTitle = new JLabel("Pregunta"  + "\n", SwingConstants.CENTER);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitle.setForeground(new Color(250, 175, 25));
         pnlTitle.add(lblTitle, BorderLayout.CENTER);
     }
 
-    public void ContentConfig() {
-    	JTextArea txtContent = new JTextArea();
-    	txtContent.setText("Hola Mundo");
-    	txtContent.setFont(new Font("Arial", Font.BOLD, 12));
-    	txtContent.setForeground(new Color(250, 175, 25));
-    	txtContent.setBackground(new Color(25, 25, 100));
-    	txtContent.setEditable(false);
-    	txtContent.setHighlighter(null);
-    	pnlContent.add(new JScrollPane(txtContent), BorderLayout.CENTER);
-    	
-    	for(int i = 0;i < configValues[2];i += 1) {
+    public void ContentConfig(JsonObject pregunta) {
+        pnlContent.removeAll();  // Limpia contenido anterior si lo hubiera
+        pnlContent.setLayout(new BorderLayout());
+    
+        JTextArea txtContent = new JTextArea();
+    
+        String textoPregunta = pregunta.has("pregunta") 
+            ? pregunta.get("pregunta").getAsString() 
+            : "Pregunta no disponible.";
+    
+        txtContent.setText(textoPregunta);
+        txtContent.setFont(new Font("Arial", Font.BOLD, 20));
+        txtContent.setForeground(new Color(250, 175, 25));
+        txtContent.setBackground(new Color(25, 25, 100));
+        txtContent.setEditable(false);
+        txtContent.setLineWrap(true);
+        txtContent.setWrapStyleWord(true);
+        txtContent.setHighlighter(null);
+    
+        pnlContent.add(new JScrollPane(txtContent), BorderLayout.CENTER);
+    
+        // === Panel para el botón y la respuesta ===
+        JPanel pnlRespuesta = new JPanel(new BorderLayout());
+        pnlRespuesta.setBackground(new Color(25, 25, 100));
+    
+        JLabel lblRespuesta = new JLabel("", SwingConstants.CENTER);
+        lblRespuesta.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblRespuesta.setForeground(Color.GREEN);
+    
+        JButton btnMostrarRespuesta = new JButton("Mostrar respuesta");
+        btnMostrarRespuesta.setFont(new Font("Arial", Font.BOLD, 15));
+        btnMostrarRespuesta.addActionListener(e -> {
+            String textoRespuesta = pregunta.has("respuesta")
+                ? pregunta.get("respuesta").getAsString()
+                : "Respuesta no disponible.";
+            lblRespuesta.setText("<html><center><b>Respuesta:</b> " + textoRespuesta + "</center></html>");
+            lblRespuesta.setFont(new Font("Arial", Font.BOLD, 20));
+        });
+    
+        pnlRespuesta.add(btnMostrarRespuesta, BorderLayout.NORTH);
+        pnlRespuesta.add(lblRespuesta, BorderLayout.CENTER);
+        pnlContent.add(pnlRespuesta, BorderLayout.SOUTH);
+    
+        // === Botones para los equipos ===
+        pnlTeamsButton.removeAll();
+        for (int i = 0; i < configValues[2]; i++) {
             final int intCurrentIDTeam = i;
-    		btnAccept = new JButton("Equipo " + (i + 1));
-        	btnAccept.addActionListener(e -> {
-        		teamSelect = intCurrentIDTeam;
-        		dispose();
-        	});
-        	pnlTeamsButton.add(btnAccept);
-    	}
+            btnAccept = new JButton("Equipo " + (i + 1));
+            btnAccept.addActionListener(e -> {
+                teamSelect = intCurrentIDTeam;
+                dispose();
+            });
+            pnlTeamsButton.add(btnAccept);
+        }
+    
+        pnlContent.revalidate();
+        pnlContent.repaint();
     }
+    
+    
     
     public Integer TeamSelected() {
         return teamSelect;

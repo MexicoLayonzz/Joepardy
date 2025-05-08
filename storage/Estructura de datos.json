@@ -1,0 +1,13 @@
+{
+  "nombre": "Estructura de datos",
+  "categorias": [
+    {
+      "nombre": "Arboles",
+      "preguntas": []
+    },
+    {
+      "nombre": "Creación de arboles",
+      "preguntas": []
+    }
+  ]
+}

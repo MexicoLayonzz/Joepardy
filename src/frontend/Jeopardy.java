@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import backend.Materia;
+import backend.Pregunta;
 
 /**
  * Panel principal del juego Jeopardy que muestra las categorías, preguntas
@@ -22,9 +23,13 @@ public class Jeopardy extends JPanel {
     private JFrame parentAlter;
     private QuestionWindow qw;
 
+    private Pregunta[][] matrizPreguntas;
+
     private JPanel pnlTitle;
     private JPanel pnlQuestions;
     private JPanel pnlTeams;
+
+
 
     private List<JButton> lstButtonQuestions;
     private List<JSpinner> teamSpinners;
@@ -107,41 +112,74 @@ public class Jeopardy extends JPanel {
      * Configura los botones de preguntas del juego.
      */
     public void QuestionConfig() {
+        Materia materia = cargarMateriaDesdeJson();
+    
+        if (materia != null && materia.getCategorias().size() >= configValues[0]) {
+            // Crear la matriz de preguntas
+            matrizPreguntas = new Pregunta[configValues[0]][configValues[1]];
+    
+            for (int i = 0; i < configValues[0]; i++) {
+                List<Pregunta> preguntasCategoria = materia.getCategorias().get(i).getPreguntas();
+                if (preguntasCategoria.size() >= configValues[1]) {
+                    for (int j = 0; j < configValues[1]; j++) {
+                        matrizPreguntas[i][j] = preguntasCategoria.get(j);
+                    }
+                }
+            }
+        }
+    
         intIDQuestion = 0;
         lstButtonQuestions = new ArrayList<>();
-        for (int i = 0; i < configValues[1]; i++) {
-            for (int j = 0; j < configValues[0]; j++) {
-                intIDQuestion += 1;
-                final int valuePoints = (i + 1) * 100;
+        pnlQuestions.removeAll(); // Limpia por si ya había preguntas antes
+    
+        for (int i = 0; i < configValues[1]; i++) { // Filas - dificultad
+            for (int j = 0; j < configValues[0]; j++) { // Columnas - categorías
+                intIDQuestion++;
+                final int fila = i;
+                final int columna = j;
+                final int valuePoints = (fila + 1) * 100;
+    
                 JButton btnQuestion = new JButton("$" + valuePoints);
                 btnQuestion.putClientProperty("questionId", intIDQuestion);
                 btnQuestion.setFont(new Font("Arial", Font.BOLD, 12));
                 btnQuestion.setBackground(new Color(25, 25, 100));
                 btnQuestion.setForeground(new Color(250, 175, 25));
+    
                 btnQuestion.addActionListener(e -> {
-                    JsonObject pregunta = preguntasPorDificultad.get(valuePoints);
+                    Pregunta pregunta = matrizPreguntas[columna][fila];
                     if (pregunta == null) {
                         JOptionPane.showMessageDialog(this, "No hay pregunta para $" + valuePoints, "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    qw = new QuestionWindow(parentAlter, pregunta, configValues);
+    
+                    Gson gson = new Gson();
+                    JsonObject preguntaJson = gson.toJsonTree(pregunta).getAsJsonObject();
+    
+                    qw = new QuestionWindow(parentAlter, preguntaJson, configValues);
                     qw.setModal(true);
                     qw.setVisible(true);
                     teamSelect = qw.TeamSelected();
+    
                     JButton btnClicked = (JButton) e.getSource();
                     btnClicked.setBackground(new Color(75, 75, 75));
                     btnClicked.setForeground(new Color(0, 0, 0));
+    
                     if (teamSelect != null && teamSelect >= 0 && teamSelect < teamSpinners.size()) {
                         JSpinner spinner = teamSpinners.get(teamSelect);
                         int current = (int) spinner.getValue();
                         spinner.setValue(current + valuePoints);
                     }
                 });
+    
                 lstButtonQuestions.add(btnQuestion);
                 pnlQuestions.add(btnQuestion);
             }
         }
+    
+        pnlQuestions.revalidate();
+        pnlQuestions.repaint();
     }
+    
 
     /**
      * Configura los controles de puntaje para cada equipo.
